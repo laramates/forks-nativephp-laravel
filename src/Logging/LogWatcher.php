@@ -8,10 +8,7 @@ use Native\Laravel\Client\Client;
 
 class LogWatcher
 {
-    public function __construct(protected Client $client)
-    {
-
-    }
+    public function __construct(protected Client $client) {}
 
     public function register(): void
     {
@@ -22,7 +19,11 @@ class LogWatcher
                 'context' => $message->context,
             ];
 
-            $this->client->post('debug/log', $payload);
+            try {
+                $this->client->post('debug/log', $payload);
+            } catch (\Exception $e) {
+                //
+            }
         });
     }
 }
