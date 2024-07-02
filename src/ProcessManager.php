@@ -21,6 +21,13 @@ class ProcessManager
             ->json('pid');
     }
 
+    public function kill(int $pid): void
+    {
+        $this->client->post('process-manager/kill', [
+            'pid' => $pid,
+        ]);
+    }
+
     public function findFreePort(): int
     {
         $sock = socket_create_listen(0);
